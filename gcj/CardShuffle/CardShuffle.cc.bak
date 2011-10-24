@@ -1,0 +1,87 @@
+#include <iostream>
+#include <cmath>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <set>
+#include <map>
+
+typedef long long ll;
+using namespace std;
+
+void dump(ll *cards, ll size) {
+
+    cout << endl;
+    for(ll i = 1; i <= size; i++) {
+        cout << "[" << i << "] "<< cards[i] << endl;
+        cout << "----------" << endl;
+    }
+
+}
+
+
+ll solve(ll M, int C, ll W, vector<pair<ll, ll> >& cuts)
+{
+    ll cards[M+1];
+    for(ll i = 0; i <= M; i++) cards[i] = i;
+    
+    for(int i = 0; i < C; i++) {
+        ll A = cuts[i].first;
+        ll B = cuts[i].second;
+        
+        ll head[A-1], middle[B], tail[M-(A+B)+1];
+        for(ll j = 1; j < A; j++) head[j-1] = cards[j];
+        for(ll j = A; j < A+B ; j++) middle[j-A] = cards[j];
+        for(ll j = A+B; j <= M; j++) tail[j-(A+B)] = cards[j];
+        
+ /*       
+        for(ll k = 0; k < A-1; k++) {
+            cout << head[k] << " ";
+        }
+        cout << endl;
+        for(ll k = 0; k < B; k++) {
+            cout << middle[k] << " ";
+        }
+        cout << endl;
+       for(ll k = 0; k < M-(A+B)+1; k++) {
+            cout << tail[k] << " ";
+        }
+        cout << endl;
+*/
+        ll idx = 1;
+        for(ll k = 0; k < B; k++) {
+            cards[idx] = middle[k];
+            idx++;
+        }
+        for(ll k = 0; k < A-1; k++) {
+            cards[idx] = head[k];
+            idx++;
+        }
+       for(ll k = 0; k < M-(A+B)+1; k++) {
+            cards[idx] = tail[k];
+            idx++;
+        }
+    }
+    //dump(cards, M);
+
+    return cards[W];
+}
+
+int main()
+{
+    int T;
+
+    scanf("%d", &T);
+    for(int i = 1; i <= T; i++) {
+        int C;
+        ll M, W;
+        vector<pair<ll, ll> > cuts;
+        scanf("%lld %d %lld", &M, &C, &W);
+        for(int c = 0; c < C; c++) {
+            ll A, B;
+            scanf("%lld %lld", &A, &B);
+            cuts.push_back(pair<ll, ll>(A, B));
+        }
+        cout << "Case #" << i << ": " << solve(M, C, W, cuts) << endl;
+    }
+}

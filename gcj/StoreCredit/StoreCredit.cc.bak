@@ -1,0 +1,92 @@
+#include <algorithm>
+#include <cstring>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class StoreCredit {
+public:
+vector<int> dp(int credit, vector<int> prices) {
+    vector<int> ret;
+    const int size = prices.size();
+    int dp[size+1][2+1];
+    int idx;
+    bool flag = false;
+
+    memset(dp, 0, sizeof(dp));
+    
+    for(int i = 1; i <= size; i++) {
+        for(int j = 1; j <= 2; j++) {
+            if(dp[i-1][j-1]+prices[i-1] <= credit) {
+                dp[i][j] = max(dp[i-1][j-1]+prices[i-1], dp[i-1][j]); 
+                if(dp[i][j] == credit && flag == false) {
+                    idx = i;
+                    flag = true;
+                }
+            }else{
+                dp[i][j] = dp[i-1][j]; 
+            }
+        }
+    }
+int idx2;
+    for(int i = idx; i >= 2; i--) {
+            if((dp[idx-1][1] - prices[idx-2]) == 0) {
+                idx2 = idx - 1;
+                break;
+        }
+    }
+    cout << idx2 << endl;
+    cout << idx << endl;
+
+    for(int i = 0; i <= size; i++) {
+        for(int j = 0; j <= 2; j++) {
+            cout << dp[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+
+
+
+
+    return ret;
+}
+};
+
+int main()
+{
+    StoreCredit sc;
+    vector<int> prices;
+
+    prices.push_back(5);
+    prices.push_back(75);
+    prices.push_back(25);
+    sc.dp(100, prices);
+    prices.clear();
+    cout << endl;
+
+    prices.push_back(150);
+    prices.push_back(24);
+    prices.push_back(79);
+    prices.push_back(50);
+    prices.push_back(88);
+    prices.push_back(345);
+    prices.push_back(3);
+    sc.dp(200, prices);
+    prices.clear();
+    cout << endl;
+    
+    prices.push_back(2);
+    prices.push_back(1);
+    prices.push_back(9);
+    prices.push_back(4);
+    prices.push_back(4);
+    prices.push_back(56);
+    prices.push_back(90);
+    prices.push_back(3);
+    sc.dp(8, prices);
+
+
+    return 0;
+}
