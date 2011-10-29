@@ -1,3 +1,4 @@
+// AOJ 0157 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0157
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -12,9 +13,9 @@ bool cmp(pair<int, int> a, pair<int, int> b)
 }
 
 /**
- * dp[i] := $B?M7A(Ba[i]$B$,4^$`$3$H$N$G$-$k:GBg$N?M7A$N?t(B
- * 1. dp[i] := 1 if $B$I$N?M7A$b4^$`$3$H$,$G$-$J$$$H$-(B($B<+J,<+?H$N$_!K(B
- * 2. dp[i] := dp[j]+1 if a[i] > a[j].$B$?$@$7!"(Ba$B$O>:=g$K%=!<%H:Q$_(B
+ * dp[i] := 人形a[i]が含むことのできる最大の人形の数
+ * 1. dp[i] := 1 if どの人形も含むことができないとき(自分自身のみ）
+ * 2. dp[i] := dp[j]+1 if a[i] > a[j].ただし、aは昇順にソート済み
  */
 int solve(vector<pair<int, int> > &dolls)
 {
@@ -34,7 +35,7 @@ int solve(vector<pair<int, int> > &dolls)
 
             if(h1 > h2 and r1 > r2) {
                 dp[i] = max(dp[i], dp[j] + 1);
-                //ret = max(ret, dp[i]); <-$B$3$l$ODL$i$J$+$C$?(B.$B0l$D$b4^$a$k$3$H$,$G$-$J$$>l9g!"(Bret$B$,99?7$5$l$:(B0$B$rJV$9$+$i(B. $B$b$7DL$7$?$$$J$i(Bret=1$B$G=i4|2=$9$l$P(Bok
+                //ret = max(ret, dp[i]); <-これは通らなかった.一つも含めることができない場合、retが更新されず0を返すから. もし通したいならret=1で初期化すればok
                 //wrong = max(wrong, dp[i]);
             }
         }
