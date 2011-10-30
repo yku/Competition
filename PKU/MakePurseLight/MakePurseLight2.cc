@@ -8,7 +8,7 @@ const int coins[4] = { 10, 50, 100, 500 };
 void solve(int bill, int k[])
 {
     int sum = 0;
-    int r[4]; // $B$*$D$j$NKg?t(B
+    int r[4]; // おつりの枚数
 
     memset(r, 0, sizeof(r));
     for(int i = 0; i < 4; i++)
@@ -23,7 +23,7 @@ void solve(int bill, int k[])
     }
     for(int i = 0; i < 4; i++) {
         int x = k[i] - r[i];
-        if(x > 0) { // $BI=<(MQ(B($B$J$/$F$bK\<AE*$K$O4X78$J$$(B)
+        if(x > 0) { // 表示用(なくても本質的には関係ない)
             cout << coins[i] << " "  << x << endl;
         }
     }
