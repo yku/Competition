@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int n = 1000000;
+const int n = 50000;
 static bool primes[n];
 
 void init_primes(void)
@@ -23,18 +23,20 @@ void init_primes(void)
 int solve(int x)
 {
     int ret = 0;
-    for(int i = 0; i <= x; i++)
-        if(primes[i]) ret++;
+    for(int i = 0; i <= x / 2; i++) {
+        if(primes[i] and primes[x-i]) ret++;
+    }
     return ret;
 }
+
 
 int main()
 {
     int x;
+
     init_primes();
-    while(cin >> x) {
+    while(cin >> x, x) {
         cout << solve(x) << endl;
     }
     return 0;
 }
-
