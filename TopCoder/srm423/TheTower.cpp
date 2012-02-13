@@ -16,6 +16,7 @@ vector <int> count(vector <int> x, vector <int> y) {
     vector<int> dst(n);
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
+            // calculate distance from (x[i], y[j]) to all checkers 
             for(int k = 0; k < n; k++) {
                 dst[k] = abs(x[i] - x[k]) + abs(y[j] - y[k]);
             }
