@@ -7,7 +7,7 @@
 
 using namespace std;
 /**
- * 0.5 Step$B9o$_$@$,!">.?tE@;H$$$?$/$J$$$?$a:BI8$r(B2$BG\$7$F@0?t$G07$&(B
+ * 0.5 Step刻みだが、小数点使いたくないため座標を2倍して整数で扱う
  */
 class AntsMeet {
 public:
@@ -20,7 +20,7 @@ int countAnts(vector <int> x, vector <int> y, string direction) {
     fill(exists, exists+n, true);
     memset(dx, 0, sizeof dx);
     memset(dy, 0, sizeof dy);
-    // 0.5 -> 1$B9o$_(B
+    // 0.5 -> 1刻み
     for(int i = 0; i < n; i++) {
         if(direction[i] == 'N') dy[i] = 1;
         else if(direction[i] == 'E') dx[i] = 1;
