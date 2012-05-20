@@ -23,6 +23,8 @@ typedef long long ll;
  * 1) n xor (n+1) => 1
  * 2) n xor (n+1) xor (n+2) => N+1 (このときはN=n+2は偶数なのでxor 1で+1)
  * 3) n xor (n+1) xor (n+2) xor (n+3) => 0
+ *
+ * 別解としては、ビットごとに立っているビットの累積和の偶奇をみてXOR?
  */
 class EllysXors {
 public:
