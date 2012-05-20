@@ -10,27 +10,14 @@ using namespace std;
 class EllysTSP {
 public:
 int getMax(string places) {
-    int c, v, ret;
+    int c, v;
     c = v = 0;
-    ret = 1;
     for(int i = 0; i < places.size(); i++) {
         if(places[i] == 'C') c++;
         else                 v++;
     }
-    char current;
-    if(c > v) current = 'C';
-    else      current = 'V';
-    while(c > 0 && v > 0) {
-        if(current == 'C') {
-            c--;
-            current = 'V';
-        }else{
-            v--;
-            current = 'C';
-        }
-        ret++;
-    }
-    return ret;
+    if(c == v) return c+v;
+    return min(c, v) * 2 + 1;
 }
 
 
