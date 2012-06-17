@@ -23,7 +23,7 @@ int solve(int n)
     
     int t = a;
     map<int, int> dict;
-    for(int i = 2; i <= t && (a || b); ) {
+    for(int i = 3; i <= t && (a || b); ) {
         if(a % i == 0) {
             dict[i]++;
             a /= i;
@@ -32,7 +32,12 @@ int solve(int n)
             dict[i]++;
             b /= i;
         }
-        else i++;
+        else i += 2;
+    }
+    
+    while(b != 1) {
+        dict[2]++;
+        b /= 2;
     }
     map<int, int>::iterator it = dict.begin();
     while(it != dict.end()) {
@@ -46,7 +51,6 @@ int solve(int n)
 int main()
 {
     int i = 1;
-    
     while(true) { 
         if(solve(i) > 500) {
             cout << (i*(i+1)/2) << endl;
