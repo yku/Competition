@@ -1,0 +1,47 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cstring>
+
+using namespace std;
+
+string solve(vector<string> v)
+{
+    string ret = "0000000000000000000000000000000000000000000000000000000000000000000000";
+    int n = ret.size(); 
+    for(int i = 0; i < v.size(); i++) {
+        string s = v[i];
+        int m = s.length();
+        bool carry = false;
+        for(int j = 0; j < m; j++) {
+            int t = (ret[n-1-j]-'0') + (s[m-1-j] - '0');
+            t += carry ? 1 : 0;
+            carry = false;
+            if(t >= 10) carry = true;
+            ret[n-1-j] = (t%10) + '0';
+        }
+        for(int j = m; carry; j++) {
+            int t;
+            if(carry) {
+                t = (ret[n-1-j]-'0') + 1;
+                carry = false;
+            }
+            if(t >= 10) carry = true;
+            ret[n-1-j] = (t%10) + '0';
+        }
+    }
+    return ret;
+}
+
+int main()
+{
+    int ret = 0;
+    string s;
+    vector<string> v;
+    while(cin >> s) {
+        v.push_back(s); 
+    }
+    cout <<  solve(v) << endl;
+    return 0;
+}
+
