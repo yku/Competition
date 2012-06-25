@@ -18,7 +18,8 @@ string add(string a, string b)
     reverse(a.begin(), a.end());
     reverse(b.begin(), b.end());
     if(a.length() != b.length()) {
-        for(int i = 0; i < a.length() - b.length(); i++)
+        int l = a.length() - b.length();
+        for(int i = 0; i < l; i++)
             b += "0";
     }
     for(int j = 0; j < a.length(); j++) {
