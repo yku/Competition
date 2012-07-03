@@ -41,9 +41,9 @@ int minLevel(vector <int> heights) {
     while(lower < upper) {
         int middle = (lower+upper) / 2;
         if(ok(heights, middle))
-            upper = middle;
+            upper = middle; // middleの値が許容されるのでtrue(でも大きすぎるかも?) => 上限値を引き下げる.ただしmiddle自体は正しいのでmiddle-1とはしない
         else
-            lower = middle+1;
+            lower = middle+1; // middleの値が小さいからfalse => 下限値を引き上げる
     }
 
     return lower;
