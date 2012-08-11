@@ -36,6 +36,9 @@ int main()
 {
     int ret = 0;
     memset(memo, 0, sizeof(memo)); 
+    // 7桁の範囲での階乗の和の最大が2540160なので、元の値とイコールになる
+    // 可能性があるのはこの値以下.
+    //for(int i = 3; i <= 2540160; i++) {
     for(int i = 3; i < 10000000; i++) {
         if(isCurious(i)) { ret += i; }
     }

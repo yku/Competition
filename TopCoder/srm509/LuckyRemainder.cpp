@@ -12,30 +12,30 @@ class LuckyRemainder {
 public:
 int getLuckyRemainder(string X) {
     /*
-     * X mod 9 = (x1 + x2 + ... + xn) mod 9$B$,@.$jN)$D(B.xn$B$O(BX$B$N3F7e$N?tCM(B.
-     * X$B$,(Bn$B7e$N@0?t$G$"$k$H$9$k$H(B,
-     * X = x1*10^n-1 + x2*10^n-2 + ... + xn*10^0 $B$GI=$;$k(B.
-     * $B$3$N$H$-(Bmod m$B$r$H$k$H(B,
+     * X mod 9 = (x1 + x2 + ... + xn) mod 9が成り立つ.xnはXの各桁の数値.
+     * Xがn桁の整数であるとすると,
+     * X = x1*10^n-1 + x2*10^n-2 + ... + xn*10^0 で表せる.
+     * このときmod mをとると,
      * X mod m = (x1*10^n-1 + x2*10^n-2 + ... + xn*10^0) mod m
-     * (a + b) mod m = (a mod m) + (b mod m) $B$h$j(B,
+     * (a + b) mod m = (a mod m) + (b mod m) より,
      * = (x1*10^n-1 + x2*10^n-2 + ... + xn*10^0) mod m
      * = (x1*10^n-1) mod m + (x2*10^n-2) mod m + ... + (xn*10^0) mod m
-     * $B$^$?(B (a * b) mod m = (a mod m) * (b mod m) $B$h$j(B
+     * また (a * b) mod m = (a mod m) * (b mod m) より
      * = (x1 mod m) * (10^n-1) mod m + (x2 mod m) * (10^n-2) mod m + ... + (xn mod m) * (10^0) mod m
-     * $B$3$3$G(Bm=9$B$H$9$k$H(B10 mod 9 = 1$B$h$j(B
+     * ここでm=9とすると10 mod 9 = 1より
      * = (x1 mod 9) * 1 + (x2 mod m) * 1 + ... + (xn mod m) * 1
      * = (x1 mod 9)  + (x2 mod 9)  + ... + (xn mod 9)
      * = (x1 + x2 + ... + xn) mod 9
-     * $B$h$C$F(B
-     * X mod 9 = (x1 + x2 + ... +xn) mod 9 $B$,@.$jN)$D(B
+     * よって
+     * X mod 9 = (x1 + x2 + ... +xn) mod 9 が成り立つ
      */
     int sum = 0;
 
     /**
-     * $B7e?t$r(Bn$B$H$9$k$H$"$k7e$N?tCM(Bx$B$O(B2^(n-1)$B2sB-$5$l$k(B
-     * $BAH$_9g$o$;$N8D?t$O(B2^n.$B$"$k7e$O>o$KB8:_$9$k$H$_$J$9$N$G(B2^(n-1)
+     * 桁数をnとするとある桁の数値xは2^(n-1)回足される
+     * 組み合わせの個数は2^n.ある桁は常に存在するとみなすので2^(n-1)
      *
-     * $B6qBNNc(B. X = 123$B$H$9$k$HAH$_9g$o$;$N8D?t$O$=$l$>$l$N7e$,$"$k$+$J$$$+$N(B2$BDL$j$J$N$G(B
+     * 具体例. X = 123とすると組み合わせの個数はそれぞれの桁があるかないかの2通りなので
      * 2 * 2 * 2 = 8.
      * 1 2 3
      * 1 2 0
@@ -45,14 +45,14 @@ int getLuckyRemainder(string X) {
      * 0 2 0
      * 0 0 3
      * 0 0 0
-     * $B$3$N$H$-(B0$B$O5M$a$F9M$($l$PLdBj$HF1$8!#(Bex) 1 0 3 => 13
+     * このとき0は詰めて考えれば問題と同じ。ex) 1 0 3 => 13
      * 
-     * $B$3$NNc$N>l9g(B,$BNc$($P$"$k?t$r(B1$B$G8GDj$7$F9M$($k$H(B1$B$,B8:_$9$kAH$_9g$o$;$,(B1$B$,2C;;$5$l$k2s?t$H$J$k!#(B
-     * $B$D$^$j!"(B1$B$O$"$k$b$N$H$7$F;D$j$N7e$,$=$l$>$l$"$k$+$J$$$+$N(B2$BDL$j$N(B
-     * $BAH$_9g$o$;$J$N$G(B 1 * 2 * 2 = 4$B$H$J$k!#(B
-     * $B$h$C$F$"$k?t$,AH$_9g$o$;$NCf$G2C;;$5$l$k8D?t$r8+$k$K$O!"(B
-     * $B$"$k?tCM$N7e$,>o$KB8:_$9$kAH$_9g$o$;$r8+$l$P$h$$!#(B
-     * n$B7e$N>l9g!"$"$k0l7e$,B8:_$9$k$N$G(B 1 * 2 * 2 * .. * 2 = 1 * 2 ^ (n-1) = 2^(n-1)
+     * この例の場合,例えばある数を1で固定して考えると1が存在する組み合わせが1が加算される回数となる。
+     * つまり、1はあるものとして残りの桁がそれぞれあるかないかの2通りの
+     * 組み合わせなので 1 * 2 * 2 = 4となる。
+     * よってある数が組み合わせの中で加算される個数を見るには、
+     * ある数値の桁が常に存在する組み合わせを見ればよい。
+     * n桁の場合、ある一桁が存在するので 1 * 2 * 2 * .. * 2 = 1 * 2 ^ (n-1) = 2^(n-1)
      */
     for(int i = 0; i < X.size(); i++) {
         int n = pow(2, (X.size() - 1));
