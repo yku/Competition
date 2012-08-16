@@ -27,16 +27,15 @@ int main()
 {
 
     set<int> s;
-    int cnt = 0, ans = 0;
-    for(int i = 2; i <= 1000; i++) {
+    int cnt = 0, ans = 0, base = 4;
+    for(int i = 1; ; i++) {
         bool distinct = true;
-        map<int,int> p;
-        p = prime_factors(i);
+
+        map<int,int> p = prime_factors(i);
         map<int,int>::iterator it = p.begin();
         while(it != p.end()) {
             int t = pow((*it).first, (*it).second);
-            cout << "cnt=" << cnt << " t=" << t << endl;
-            if(s.count(t)) {
+            if(p.size() != base or s.count(t)) {
                 distinct = false;
                 s.clear();
                 break;
@@ -46,9 +45,8 @@ int main()
         }
         if(distinct) cnt++;
         else cnt = 0;
-        if(cnt == 3) { ans = i - 3; break; }
+        if(cnt == base) { ans = i - base + 1; break; }
     }
     cout << ans << endl;
     return 0;
 }
-
